@@ -1,0 +1,129 @@
+Android App
+     ↓ Bluetooth (SPP)
+HC-05 Module
+     ↓ UART
+Raspberry Pi Pico
+     ↓ GPIO + PWM
+L298 Motor Driver
+     ↓
+DC Motors → RC Car
+
+
+👉 Your Android app sends commands → via Bluetooth → Pico → Pico controls motors
+
+Protocols used in YOUR project (and WHY)
+1️⃣ UART (Serial Protocol) ✅ MOST IMPORTANT
+Where?
+
+HC-05 ↔ Raspberry Pi Pico
+
+Why UART?
+
+HC-05 talks using serial data
+
+Pico has UART pins
+
+Simple, reliable, perfect for commands like:
+
+F  (forward)
+B  (backward)
+L  (left)
+R  (right)
+S  (stop)
+
+
+📌 Example connection:
+
+HC-05	Pico
+TX	RX
+RX	TX
+VCC	5V
+GND	GND
+
+📌 Flow:
+
+Android App → Bluetooth → HC-05 → UART → Pico
+
+2️⃣ Bluetooth (Wireless Communication)
+Where?
+
+Android app ↔ HC-05
+
+Why Bluetooth?
+
+Wireless control
+
+Low power
+
+Easy to use
+
+Supported by Android apps
+
+📌 Bluetooth protocol stack (don’t panic 😄):
+
+Bluetooth Classic
+
+Serial Port Profile (SPP) → acts like wireless UART
+
+📌 Important:
+👉 HC-05 makes Bluetooth look like UART to Pico
+
+3️⃣ GPIO (Digital Output Control)
+Where?
+
+Pico → L298 motor driver
+
+Why GPIO?
+
+L298 needs HIGH / LOW signals
+
+Direction control:
+
+IN1, IN2 → Motor A direction
+
+IN3, IN4 → Motor B direction
+
+📌 Example:
+
+GPIO = 1 → motor forward
+GPIO = 0 → motor stop
+
+4️⃣ PWM (Pulse Width Modulation)
+Where?
+
+Pico → L298 ENA, ENB pins
+
+Why PWM?
+
+Control motor speed
+
+Smooth acceleration
+
+Different speeds for turning
+
+📌 Example:
+
+PWM Duty	Speed
+30%	Slow
+60%	Medium
+100%	Fast
+❌ Protocols NOT used (important clarity)
+Protocol	Why NOT used
+I2C	No sensors / displays
+SPI	No fast peripherals
+ADC	No analog sensor input
+USB	Not needed after programming
+Full Protocol Map (Simple Diagram)
+Android App
+     ↓ Bluetooth (SPP)
+HC-05 Module
+     ↓ UART
+Raspberry Pi Pico
+     ↓ GPIO + PWM
+L298 Motor Driver
+     ↓
+DC Motors → RC Car
+
+One-Line Answer (Exam Ready) 📝
+
+In this RC car project, Bluetooth (SPP) is used for wireless communication between the Android app and HC-05. UART protocol is used between HC-05 and Raspberry Pi Pico to transfer control commands. GPIO pins control motor direction via L298, and PWM is used to control motor speed.
